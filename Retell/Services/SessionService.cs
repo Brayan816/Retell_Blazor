@@ -30,7 +30,7 @@ namespace Retell.Services
                 stringValue = JsonConvert.SerializeObject(value);
 
             string keyencrypt = Security.Encrypt(key);
-            string valueEncrpt = Security.Decrypt(stringValue);
+            string valueEncrpt = Security.Encrypt(stringValue);
 
             await _storage.SetItemAsStringAsync(keyencrypt, valueEncrpt);
         }

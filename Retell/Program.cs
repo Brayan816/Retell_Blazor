@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using Blazored.Toast;
 using Retell.Api;
 using Retell.Components;
 using Retell.Services;
@@ -6,6 +7,7 @@ using Retell.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddBlazoredToast();
 
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddHttpClient<IApiRetell, ApiRetell>();

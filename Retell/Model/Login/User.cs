@@ -5,7 +5,7 @@ namespace Retell.Model.Login
 {
     public class User
     {
-        [JsonProperty("SUCCESS")] public string SUCCESS { get; set; }
+        [JsonProperty("SUCCESS")] public bool SUCCESS { get; set; }
         [JsonProperty("MENSAJE")] public string MENSAJE { get; set; }
         [JsonProperty("USURIOID")] public string USURIOID { get; set; }
         [JsonProperty("EMPRESAID")] public string EMPRESAID { get; set; }

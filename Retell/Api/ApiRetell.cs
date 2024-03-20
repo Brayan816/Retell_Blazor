@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Retell.Commons;
 using Retell.Model.Login;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Collections.Generic;
 
 namespace Retell.Api
 {
@@ -11,10 +13,16 @@ namespace Retell.Api
     public class ApiRetell : IApiRetell
     {
         private string baseuri = Helpers.GetApiUrl();
+        private readonly HttpClient _httpClient;
+
+        public ApiRetell(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
         public async Task<User> LoginAsync(User user)
         {
             User user1 = new User();
-            string uri = $"{baseuri}/Retell/Login?empresa={Security.Encrypt(user.EMPRESAID)}&userName={Security.Encrypt(user.USERNAME)}&password={Security.Encrypt(user.PASSWORD)}";
+            string uri = $"{baseuri}/Retell/Login?empresa={Security.Encrypt(user.EMPRESA)}&userName={Security.Encrypt(user.USERNAME)}&password={Security.Encrypt(user.PASSWORD)}";
             using (HttpClient httpClient = new HttpClient())
             {
                 try
@@ -27,7 +35,8 @@ namespace Retell.Api
                     {
                         // Read and print the response content
                         string responseBody = await response.Content.ReadAsStringAsync();
-                        return (User)JsonConvert.DeserializeObject(responseBody, typeof(User));
+                        User data = JsonConvert.DeserializeObject<User>(responseBody);
+                        return data;
                         Console.WriteLine(responseBody);
                     }
                     else

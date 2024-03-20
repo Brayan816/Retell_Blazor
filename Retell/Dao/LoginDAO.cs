@@ -6,9 +6,10 @@ namespace Retell.Dao
 {
     public class LoginDAO
     {
-        [Inject]
-        private IApiRetell _apiRetell {  get; set; }
-
+        private readonly IApiRetell _apiRetell;
+        public LoginDAO(IApiRetell apiRetell) { 
+            _apiRetell = apiRetell;
+        }
         public async Task<User> LoginRetell(User user)
         {
             user = await _apiRetell.LoginAsync(user);
