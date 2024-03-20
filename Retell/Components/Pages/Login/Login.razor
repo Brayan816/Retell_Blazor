@@ -1,0 +1,49 @@
+﻿@page "/"
+@page "/Login"
+@using Model.Login
+@using Retell.Components.Layout
+@rendermode InteractiveServer
+@layout LoginLayout
+
+<PageTitle>Login</PageTitle>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #fbbb64;">
+            <div class="featured-image mb-3">
+                <img src="/resources/login.png" class="img-fluid" style="width: 250px;">
+            </div>
+            <p class="text-black fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">RETELL</p>
+        </div>
+        <div class="col-md-6 right-box">
+            <EditForm Model="user" OnValidSubmit="@Submit">
+                <div>
+                    <div class="header-text mb-4">
+                        <h2>Login</h2>
+                    </div>
+                    <div class="input-group mb-3">
+                        <InputText type="text" class="form-control form-control-lg bg-light fs-6" @bind-Value="@user.EMPRESA" placeholder="Empresa" required />
+                    </div>
+                    <div class="input-group mb-3">
+                        <InputText type="text" class="form-control form-control-lg bg-light fs-6" @bind-Value="@user.USERNAME" placeholder="User" required/>
+                    </div>
+                    <div class="input-group mb-1">
+                        <InputText type="password" class="form-control form-control-lg bg-light fs-6" @bind-Value="@user.PASSWORD" placeholder="Password" required />
+                    </div>
+                    <div class="input-group mb-5 d-flex justify-content-between">
+                        <div class="form-check">
+                            @* <input type="checkbox" class="form-check-input" id="formCheck"> *@
+                            <label for="formCheck" class="form-check-label text-secondary"><small>Recordar</small></label>
+                        </div>
+                        <div class="forgot">
+                            <small><a href="#">Olvidaste la contraseña?</a></small>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <button style="background-color: #344a52; border-color:#344a52" type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
