@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Globalization;
 
 namespace Retell.Model.Login
 {
@@ -12,5 +11,6 @@ namespace Retell.Model.Login
         [JsonProperty("EMPRESA")] public string EMPRESA { get; set; }
         [JsonProperty("USERNAME")] public string USERNAME { get; set; }
         [JsonProperty("PASSWORD")] public string PASSWORD { get; set; }
+        [JsonProperty("TOKEN")] public string TOKEN { get; set; }
     }
 }

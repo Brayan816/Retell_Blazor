@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddBlazoredToast();
+builder.Services.AddBlazorBootstrap();
 
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddHttpClient<IApiRetell, ApiRetell>();
@@ -15,7 +16,6 @@ builder.Services.AddHttpClient<IApiRetell, ApiRetell>();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddBlazoredLocalStorage();
 
 var app = builder.Build();
 
