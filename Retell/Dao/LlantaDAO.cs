@@ -18,5 +18,20 @@ namespace Retell.Dao
             List<LlantaGrid> data = await _apiRetell.GetAllLantas("");
             return data;
         }
+        public async Task<List<DeLlanta>> GetAllDeLlantas(string llantaId)
+        {
+            List<DeLlanta> data = await _apiRetell.GetAllDeLlantas(llantaId);
+            return data;
+        }
+        public async Task<List<LlantaDoc>> GetAllDocLlantas(string llantaId)
+        {
+            List<LlantaDoc> data = await _apiRetell.GetAllDocLlantas(llantaId);
+            return data;
+        }
+        public async Task<ModelLlanta> GetLlanta(string llantaId)
+        {
+            ModelLlanta data = await _apiRetell.GetLlanta(llantaId);
+            return data;
+        }
     }
 }

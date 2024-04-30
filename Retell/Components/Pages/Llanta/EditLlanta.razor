@@ -1,0 +1,95 @@
+﻿@page "/llantas/llanta/{LlantaId}"
+@rendermode InteractiveServer
+@using Retell.Model.Llanta
+
+<BreadCrumbComponent navItems="breadcums"></BreadCrumbComponent>
+
+<div class="row">
+    <fieldset class="row" disabled="@(!enabled)">
+        <div class="col-4">
+            <div class="form-floating">
+                <InputText type="text" class="form-control" id="numero" placeholder="" disabled @bind-Value="llanta.NUMERO" />
+                <label for="numero">Numero</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-floating mb-3">
+                <InputText type="text" class="form-control" id="propietario" placeholder="" @bind-Value="llanta.NOMPROP" />
+                <label for="propietario">Propietario</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-floating mb-3">
+                <InputText type="text" class="form-control" id="usuario" placeholder="" @bind-Value="llanta.USERCODE" />
+                <label for="usuario">Usuario</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <InputTextArea type="text" class="form-control" id="observacion" placeholder="" @bind-Value="llanta.OBSERVACION" />
+                <label for="observacion">Observacion</label>
+            </div>
+        </div>        
+    </fieldset>
+</div>
+@if (!LlantaId.Equals("0"))
+{
+    <div class="row pb-1">
+        <div class="col-12 d-flex justify-content-start">
+            <Button Color="ButtonColor.Primary" @onclick="@(()=>EditAnexo(llanta.LLANTAID))" Class="btn rounded me-2">Agregar Anexo</Button>
+            <Button Color="ButtonColor.Success" @onclick="@(()=>EditMaterial(llanta.LLANTAID))" Class="btn rounded me-2">Agregar Material</Button>
+        </div>
+    </div>
+}
+
+<div class="row pt-3">
+    <Tabs EnableFadeEffect="true" NavStyle="NavStyle.Underline">
+        <Tab Title="Historial">
+            <Content>
+               <QuickGrid 
+                    Items="@deLlanta"
+                    Class="table table-hover">
+                    <PropertyColumn Title="FECHA" Property="@(p => p.FECHA)" Sortable="true" />
+                    <PropertyColumn Title="OBSERVACION" Property="@(p => p.OBSERVACION)" Sortable="true" />
+                    <PropertyColumn Title="ASIGNADO" Property="@(p => p.USUARIOACT)" Sortable="true" />
+                    <PropertyColumn Title="ANTERIOR" Property="@(p => p.USUARIOANT)" Sortable="true" />
+               </QuickGrid>
+            </Content>
+        </Tab>
+        <Tab Title="Anexos">
+            <Content>
+                <QuickGrid Items="@docLlanta"
+                           Class="table table-hover">
+                    <PropertyColumn Title="FECHA" Property="@(p => p.FECHA)" Sortable="true" />
+                    <PropertyColumn Title="OBSERVACION" Property="@(p => p.OBSERVACION)" Sortable="true" />
+                    <PropertyColumn Title="NOMBRE" Property="@(p => p.NOMANEXO)" Sortable="true" />
+                </QuickGrid>
+            </Content>
+        </Tab>
+        <Tab Title="Material">
+            <Content>
+                <QuickGrid Items="@deLlanta"
+                           Class="table table-hover">
+                    <PropertyColumn Title="FECHA" Property="@(p => p.FECHA)" Sortable="true" />
+                    <PropertyColumn Title="OBSERVACION" Property="@(p => p.OBSERVACION)" Sortable="true" />
+                    <PropertyColumn Title="ASIGNADO" Property="@(p => p.USUARIOACT)" Sortable="true" />
+                    <PropertyColumn Title="ANTERIOR" Property="@(p => p.USUARIOANT)" Sortable="true" />
+                </QuickGrid>
+            </Content>
+        </Tab>
+    </Tabs>
+</div>
+
+<div class="row pb-3 ps-3 pe-3 g-3 mb-6">
+    <div class="col-12 d-flex justify-content-end pt-2 pe-2 ps-2">
+        @if (!LlantaId.Equals("0"))
+        {
+            <Button Color="ButtonColor.Primary" @onclick="@(()=>EditReasignar(llanta.LLANTAID))" Class="btn rounded me-2">Reasignar</Button>
+        }
+        <Button Color="ButtonColor.Danger" @onclick="GoBack" Class="btn rounded me-2">Cancelar</Button>
+    </div>
+</div>
+
+<EditAnexo @ref="editAnexo"></EditAnexo>
+<EditMaterial @ref="editMaterial"></EditMaterial>
+<EditReasignar @ref="editReasignar"></EditReasignar>

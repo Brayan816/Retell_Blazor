@@ -7,7 +7,7 @@
 <div class="row">
     <div class="d-flex justify-content-between">
         <div>
-            <button type="button" class="btn btn-primary align-content-center">Insertar</button>
+            <button type="button" class="btn btn-primary align-content-center" @onclick="@(()=>EditLlanta("0"))">Insertar</button>
         </div>
         <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
             <div class="input-group">
@@ -28,6 +28,12 @@
             <PropertyColumn Title="INGRESO" Property="@(p => p.FECHAING)" Sortable="true" />
             <PropertyColumn Title="ENTREGA" Property="@(p => p.FECHAENT)" Sortable="true" />
             <PropertyColumn Title="ESTADO" Property="@(p => p.ESTADO)" Sortable="true" />
+            <TemplateColumn Title="MAS" Align="Align.Center">
+                <button style="background: none; border: none;" @onclick="@(() => EditLlanta(context.LLANTAID))">
+                    <i class="bi bi-eye"></i>
+                </button>
+                @* <button @onclick="@(() => Fire(context))">Fire</button> *@
+            </TemplateColumn>
         </QuickGrid>
     </div>
     <Paginator State="@pagination" />

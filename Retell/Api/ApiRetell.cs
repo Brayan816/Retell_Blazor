@@ -6,13 +6,22 @@ using System.Collections.Generic;
 using Retell.Model.Llanta;
 using Retell.Services;
 using Retell.Components.Pages.Llanta;
+using System.Linq;
 
 namespace Retell.Api
 {
     public interface IApiRetell
     {
         Task<User> LoginAsync(User user);
+        #region llanta
         Task<List<LlantaGrid>> GetAllLantas(string texto);
+        Task<List<DeLlanta>> GetAllDeLlantas(string llanataId);
+        Task<List<LlantaDoc>> GetAllDocLlantas(string llantaId);
+        Task<ModelLlanta> GetLlanta(string llantaId);
+        #endregion
+        #region Persona
+        Task<List<LlantaGrid>> GetAllPersonas(string texto);
+        #endregion
     }
     public class ApiRetell : IApiRetell
     {
@@ -88,6 +97,104 @@ namespace Retell.Api
                 }
             }
             return null;
+        }
+        public async Task<List<DeLlanta>> GetAllDeLlantas(string llantaId)
+        {
+            List<DeLlanta> data = new List<DeLlanta>();
+            string token = await _sesion.GetSessionValue(SessionVariables.TOKEN);
+            //return data;
+            string uri = $"{baseuri}/Retell/Llanta/ListarDeLlantas?llantaId={llantaId}";
+            using (HttpClient client = new HttpClient())
+            {
+                // Agregar el token de autorización al encabezado de la solicitud
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                // Realizar la solicitud GET a la API
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                // Verificar si la solicitud fue exitosa
+                if (response.IsSuccessStatusCode)
+                {
+                    // Leer y mostrar la respuesta
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<List<DeLlanta>>(responseBody);
+                    return data;
+                }
+                else
+                {
+                    // Mostrar el código de estado en caso de error
+                    Console.WriteLine($"La solicitud falló con el código de estado: {response.StatusCode}");
+                }
+            }
+            return null;
+        }
+        public async Task<List<LlantaDoc>> GetAllDocLlantas(string llantaId)
+        {
+            List<LlantaDoc> data = new List<LlantaDoc>();
+            string token = await _sesion.GetSessionValue(SessionVariables.TOKEN);
+            //return data;
+            string uri = $"{baseuri}/Retell/Llanta/ListarDocLlantas?llantaId={llantaId}";
+            using (HttpClient client = new HttpClient())
+            {
+                // Agregar el token de autorización al encabezado de la solicitud
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                // Realizar la solicitud GET a la API
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                // Verificar si la solicitud fue exitosa
+                if (response.IsSuccessStatusCode)
+                {
+                    // Leer y mostrar la respuesta
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<List<LlantaDoc>>(responseBody);
+                    return data;
+                }
+                else
+                {
+                    // Mostrar el código de estado en caso de error
+                    Console.WriteLine($"La solicitud falló con el código de estado: {response.StatusCode}");
+                }
+            }
+            return null;
+        }
+        public async Task<ModelLlanta> GetLlanta(string llantaId)
+        {
+            ModelLlanta data = new ModelLlanta();
+            string token = await _sesion.GetSessionValue(SessionVariables.TOKEN);
+            //return data;
+            string uri = $"{baseuri}/Retell/Llanta/{llantaId}";
+            using (HttpClient client = new HttpClient())
+            {
+                // Agregar el token de autorización al encabezado de la solicitud
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                // Realizar la solicitud GET a la API
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                // Verificar si la solicitud fue exitosa
+                if (response.IsSuccessStatusCode)
+                {
+                    // Leer y mostrar la respuesta
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<ModelLlanta>(responseBody);
+                    return data;
+                }
+                else
+                {
+                    // Mostrar el código de estado en caso de error
+                    Console.WriteLine($"La solicitud falló con el código de estado: {response.StatusCode}");
+                }
+            }
+            return null;
+        }
+
+        public Task<List<LlantaGrid>> GetAllPersonas(string texto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

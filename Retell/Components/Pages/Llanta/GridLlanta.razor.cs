@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.QuickGrid;
 using Retell.Api;
+using Retell.Commons;
 using Retell.Dao;
 using Retell.Model.Llanta;
 
@@ -11,6 +12,8 @@ namespace Retell.Components.Pages.Llanta
     {
         [Inject]
         private IApiRetell apiRetell { get; set; }
+        [Inject]
+        private NavigationManager navigationManager { get; set; }
 
         public IQueryable<LlantaGrid> data;
         private LlantaDao _llantaDao;
@@ -35,6 +38,12 @@ namespace Retell.Components.Pages.Llanta
             if (llantas?.Count > 0)
                 data = llantas.AsQueryable();
             StateHasChanged();
+        }
+
+        private async Task EditLlanta(string llantaId)
+        {
+            llantaId = Security.Encrypt(llantaId);
+            navigationManager.NavigateTo($"/llantas/llanta/{llantaId}");
         }
     }
 }

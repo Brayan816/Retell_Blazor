@@ -40,6 +40,7 @@ namespace Retell.Components.Pages.Login
             if (user.SUCCESS)
             {
                 await _session.SetSessionValue(SessionVariables.EMPRESA, user.EMPRESA);
+                await _session.SetSessionValue(SessionVariables.USERNAME, org.USERNAME);
                 await _session.SetSessionValue(SessionVariables.EMPRESAID, user.EMPRESAID);
                 await _session.SetSessionValue(SessionVariables.PASSWORD, org.PASSWORD);
                 await _session.SetSessionValue(SessionVariables.TOKEN, user.TOKEN);

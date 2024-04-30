@@ -1,0 +1,22 @@
+﻿<Modal Title="Reasignar" @ref="modal" IsVerticallyCentered=true ShowCloseButton=false>
+    <BodyTemplate>
+        <h1>Reasignar</h1>
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Primary">Guardar</Button>
+        <Button Color="ButtonColor.Danger" @onclick="OnHideModalClick">Cancelar</Button>
+    </FooterTemplate>
+</Modal>
+
+@code {
+    private Modal modal;
+    public async Task OnShowModalClick()
+    {
+        await modal?.ShowAsync();
+    }
+
+    public async Task OnHideModalClick()
+    {
+        await modal?.HideAsync();
+    }
+}

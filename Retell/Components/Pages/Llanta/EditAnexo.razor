@@ -1,0 +1,31 @@
+﻿<Modal Title="Agregar Anexo" @ref="modal" IsVerticallyCentered=true ShowCloseButton=false>
+    <BodyTemplate>
+        <div class="col-12">
+            <div class="form-floating mb-3">
+                <InputTextArea type="text" class="form-control" id="observacion" placeholder="" @bind-Value="s21"/>
+                <label for="observacion">Observacion</label>
+            </div>
+        </div>
+        <div class="col-12 pt-1 p1-2 p1-2">
+            <InputFile class="form-control form-control-lg" lang="es" type="file" placeholder="Anexo" required></InputFile>
+        </div>
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Primary">Guardar</Button>
+        <Button Color="ButtonColor.Danger" @onclick="OnHideModalClick">Cancelar</Button>
+    </FooterTemplate>
+</Modal>
+
+@code {
+    private Modal modal;
+    private string s21;
+    public async Task OnShowModalClick()
+    {
+        await modal?.ShowAsync();
+    }
+
+    public async Task OnHideModalClick()
+    {
+        await modal?.HideAsync();
+    }
+}
